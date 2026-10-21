@@ -39,3 +39,36 @@ if (themeToggle) {
         }
     });
 }
+document.querySelectorAll('[data-carousel-next]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const categoryId = button.dataset.carouselNext;
+
+        const carousel = document.getElementById(
+            `carousel-category-${categoryId}`
+        );
+
+        if (carousel) {
+            carousel.scrollBy({
+                left: 300,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+document.querySelectorAll('[data-carousel-prev]').forEach((button) => {
+    button.addEventListener('click', () => {
+        const categoryId = button.dataset.carouselPrev;
+
+        const carousel = document.getElementById(
+            `carousel-category-${categoryId}`
+        );
+
+        if (carousel) {
+            carousel.scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        }
+    });
+});

@@ -4,9 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Public\ContactController;
 
 Route::get('/', [\App\Http\Controllers\Public\HomeController::class, 'index'])
     ->name('home');
+
+Route::post('/contacto', [ContactController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
 
 Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -41,4 +46,5 @@ Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')
 
     Route::put('/products/{product}', [ProductController::class, 'update'])
         ->name('products.update');
+
 });
