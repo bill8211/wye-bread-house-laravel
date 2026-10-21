@@ -7,6 +7,31 @@
 @section('admin-content')
 <div class="space-y-6">
 
+    <!-- SECCIÓN DE ALERTAS DE BAJO STOCK -->
+    @if($lowStockProducts->count() > 0)
+    <div class="rounded-xl border border-red-200 bg-red-50 p-5 dark:border-red-900/50 dark:bg-red-950/30">
+        <h3 class="flex items-center text-lg font-semibold text-red-800 dark:text-red-400">
+            <!-- Icono de advertencia -->
+            <svg class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            Atención: Productos con bajo stock ({{ $lowStockProducts->count() }})
+        </h3>
+        <p class="mt-1 text-sm text-red-600 dark:text-red-300">
+            Los siguientes productos tienen 10 o menos unidades disponibles. Registra una entrada de inventario pronto.
+        </p>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach($lowStockProducts as $product)
+            <div class="rounded-lg border border-red-100 bg-white p-4 shadow-sm dark:border-red-800 dark:bg-stone-900">
+                <p class="font-medium text-stone-900 dark:text-stone-100">{{ $product->name }}</p>
+                <p class="mt-1 text-sm text-red-600 dark:text-red-400">Stock actual: <span class="font-bold">{{ $product->stock }}</span></p>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
     <div class="rounded-xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-900 dark:bg-stone-900 sm:p-6">
         <h2 class="text-lg font-semibold text-amber-950 dark:text-amber-200">
             ¡Bienvenido, {{ auth()->user()->name }}!
@@ -82,41 +107,58 @@
             </div>
         </a>
 
-        <!-- gestion de productos -->
-        <!-- <a href="{{ route('admin.products.index') }}">
-             <div class="rounded-xl border border-stone-200 bg-white p-5 opacity-70 dark:border-stone-700 dark:bg-stone-900">
-                 <h3 class="text-lg font-semibold text-amber-950 dark:text-amber-200">
-                     Gestión de productos
-                 </h3>
-     
-                 <p class="mt-2 text-sm text-stone-600 dark:text-stone-300">
-                     Próximamente: administrar productos, precios y categorías.
-                 </p>
-             </div>
-         </a> -->
 
-        <!-- gestion de inventario -->
-        <div class="rounded-xl border border-stone-200 bg-white p-5 opacity-70 dark:border-stone-700 dark:bg-stone-900">
-            <h3 class="text-lg font-semibold text-amber-950 dark:text-amber-200">
-                Inventario
-            </h3>
+        <!-- gestionar Inventarios -->
+        <a href="{{ route('admin.inventory.index') }}"
+            class="group rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-amber-300 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-amber-700">
+            <div class="flex items-center gap-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-amber-100 text-amber-800">
+                    <svg xmlns="http://w3.org" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <!-- Caja superior / Principal -->
+                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                        <!-- Líneas internas que dan el efecto 3D de la caja -->
+                        <path d="m3.3 7 8.7 5 8.7-5" />
+                        <path d="M12 22V12" />
+                    </svg>
+                </div>
 
-            <p class="mt-2 text-sm text-stone-600 dark:text-stone-300">
-                Próximamente: consultar existencias y movimientos.
-            </p>
-        </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-amber-950 dark:text-amber-200"">
+                        Gestión de Inventarios
+                    </h3>
 
-        <!-- mensajes de contacto -->
-        <div class="rounded-xl border border-stone-200 bg-white p-5 opacity-70 dark:border-stone-700 dark:bg-stone-900">
-            <h3 class="text-lg font-semibold text-amber-950 dark:text-amber-200">
-                Mensajes de contacto
-            </h3>
+                    <p class=" mt-2 text-sm text-stone-600 dark:text-stone-300">
+                        Crear y consultar de inventarios.
+                        </p>
+                </div>
+            </div>
+        </a>
 
-            <p class="mt-2 text-sm text-stone-600 dark:text-stone-300">
-                Próximamente: consultar los mensajes recibidos.
-            </p>
-        </div>
+        <!-- gestionar Inventarios -->
+        <a href="{{ route('admin.contacts.index') }}"
+            class="group rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-amber-300 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-amber-700">
+            <div class="flex items-center gap-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-amber-100 text-amber-800">
+                    <svg xmlns="http://w3.org" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <!-- Cuerpo del sobre -->
+                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                        <!-- Pliegue de la carta -->
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
 
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-amber-950 dark:text-amber-200"">
+                        Gestión de Mensajes
+                    </h3>
+
+                    <p class=" mt-2 text-sm text-stone-600 dark:text-stone-300">
+                        Consulta de mensajes.
+                        </p>
+                </div>
+            </div>
+        </a>
     </div>
 </div>
 @endsection

@@ -92,8 +92,13 @@
                             Q{{ number_format($product->price, 2) }}
                         </td>
 
-                        <td class="px-5 py-4 text-stone-600 dark:text-stone-300">
-                            {{ $product->stock }}
+                        <td class="px-5 py-4">
+                            @if($product->stock <= 10)
+                                <span class="font-bold text-red-600 dark:text-red-400">{{ $product->stock }}</span>
+                                <span class="ml-1 inline-flex rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-800 dark:bg-red-900 dark:text-red-200">¡Bajo!</span>
+                                @else
+                                <span class="text-stone-600 dark:text-stone-300">{{ $product->stock }}</span>
+                                @endif
                         </td>
 
                         <td class="px-5 py-4">
@@ -108,12 +113,28 @@
                             @endif
                         </td>
 
-                        <td class="px-5 py-4">
-                            <!-- Enlace temporal '#' para evitar errores -->
+                        <td class="px-5 py-4 flex items-center gap-2">
                             <a href="{{ route('admin.products.edit', $product) }}"
                                 class="rounded-lg border border-stone-200 px-3 py-2 text-xs font-semibold text-stone-700 transition hover:bg-stone-50 dark:border-stone-600 dark:text-stone-300 dark:hover:bg-stone-700">
                                 Editar
                             </a>
+
+                            <form method="POST" action="{{ route('admin.products.toggle-status', $product) }}">
+                                @csrf
+                                @method('PATCH')
+
+                                @if ($product->is_active)
+                                <button type="submit"
+                                    class="rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950/50 cursor-pointer">
+                                    Desactivar
+                                </button>
+                                @else
+                                <button type="submit"
+                                    class="rounded-lg border border-green-200 px-3 py-2 text-xs font-semibold text-green-700 transition hover:bg-green-50 dark:border-green-900 dark:text-green-400 dark:hover:bg-green-950/50 cursor-pointer">
+                                    Activar
+                                </button>
+                                @endif
+                            </form>
                         </td>
                     </tr>
                     @empty

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\ContactController;
 
 Route::get('/', function () {
     return view('home');
@@ -42,4 +44,22 @@ Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')
 
     Route::put('/products/{product}', [ProductController::class, 'update'])
         ->name('products.update');
+
+    Route::patch('/products/{product}/status', [ProductController::class, 'toggleStatus'])
+        ->name('products.toggle-status');
+
+    Route::get('/inventory', [InventoryController::class, 'index'])
+        ->name('inventory.index');
+
+    Route::get('/inventory/create', [InventoryController::class, 'create'])
+        ->name('inventory.create');
+
+    Route::post('/inventory', [InventoryController::class, 'store'])
+        ->name('inventory.store');
+
+    Route::get('/contacts', [ContactController::class, 'index'])
+        ->name('contacts.index');
+
+    Route::patch('/contacts/{contact}/status', [ContactController::class, 'markAsAttended'])
+        ->name('contacts.mark-attended');
 });

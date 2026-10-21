@@ -82,4 +82,16 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')
             ->with('success', 'Producto actualizado exitosamente.');
     }
+
+    public function toggleStatus(Product $product)
+    {
+        $product->update([
+            'is_active' => !$product->is_active
+        ]);
+
+        $estado = $product->is_active ? 'activado' : 'desactivado';
+
+        return redirect()->route('admin.products.index')
+            ->with('success', "El producto ha sido {$estado} exitosamente.");
+    }
 }

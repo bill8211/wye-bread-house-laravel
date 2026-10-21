@@ -43,10 +43,15 @@
                         Gestión de Productos
                     </a>
 
-                    <div class="rounded-lg px-3 py-2 text-sm text-stone-400">
-                        Inventario
-                        <span class="block text-xs">Próximamente</span>
-                    </div>
+                    <a href="{{ route('admin.inventory.index') }}"
+                       class="block rounded-lg px-3 py-2 text-sm font-medium text-stone-700 transition hover:bg-amber-50 hover:text-amber-900 dark:text-stone-200 dark:hover:bg-stone-800 dark:hover:text-amber-300 ">
+                        Gestión de Inventarios
+                    </a>
+
+                    <a href="{{ route('admin.contacts.index') }}"
+                       class="block rounded-lg px-3 py-2 text-sm font-medium text-stone-700 transition hover:bg-amber-50 hover:text-amber-900 dark:text-stone-200 dark:hover:bg-stone-800 dark:hover:text-amber-300 ">
+                        Gestión de Mensajes
+                    </a>
                 </nav>
             </aside>
 
