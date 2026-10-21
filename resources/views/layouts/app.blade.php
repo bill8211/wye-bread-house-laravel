@@ -21,7 +21,9 @@
 </head>
 
 <body class="min-h-screen bg-stone-50 font-sans text-stone-800 antialiased transition-colors dark:bg-stone-950 dark:text-stone-100">
-
+    @hasSection('public-header')
+    @yield('public-header')
+    @else
     <header class="border-b border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-900"">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 
@@ -67,6 +69,7 @@
 
         </div>
     </header>
+    @endif
 
     <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         @yield('content')
