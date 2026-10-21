@@ -7,9 +7,11 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\ContactController;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+use App\Http\Controllers\Frontend\ContactController as PublicContactController;
+
+use App\Http\Controllers\Frontend\HomeController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -63,3 +65,6 @@ Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')
     Route::patch('/contacts/{contact}/status', [ContactController::class, 'markAsAttended'])
         ->name('contacts.mark-attended');
 });
+
+Route::get('/contacto', [PublicContactController::class, 'index'])->name('contact.index');
+Route::post('/contacto', [PublicContactController::class, 'store'])->name('contact.store');

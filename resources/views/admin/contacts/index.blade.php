@@ -75,7 +75,8 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit"
-                                    class="rounded-lg border border-green-200 px-3 py-2 text-xs font-semibold text-green-700 transition hover:bg-green-50 dark:border-green-900 dark:text-green-400 dark:hover:bg-green-950/50">
+                                    class="rounded-lg border border-green-200 px-3 py-2 text-xs font-semibold text-green-700 transition hover:bg-green-50 dark:border-green-900 dark:text-green-400 dark:hover:bg-green-950/50 cursor-pointer
+                                    ">
                                     Marcar Atendido
                                 </button>
                             </form>
