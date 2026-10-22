@@ -54,7 +54,8 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
+        @can('manage-users')
+        <!-- Gestionar usuario -->
         <a href="{{ route('admin.users.index') }}"
             class="group rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-amber-300 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-amber-700">
             <div class="flex items-center gap-3">
@@ -82,7 +83,9 @@
                 </div>
             </div>
         </a>
+        @endcan
 
+        @can('manage-users')
         <!-- gestionar productos -->
         <a href="{{ route('admin.products.index') }}"
             class="group rounded-xl border border-stone-200 bg-white p-5 shadow-sm transition hover:border-amber-300 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:hover:border-amber-700">
@@ -106,6 +109,7 @@
                 </div>
             </div>
         </a>
+        @endcan
 
 
         <!-- gestionar Inventarios -->

@@ -38,22 +38,23 @@
                     @error('sender_email') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
                 </div>
 
-                <!-- Asunto -->
-                <div class="sm:col-span-2">
-                    <label for="subject" class="mb-1 block text-sm font-medium text-stone-700 dark:text-stone-300">Asunto <span class="text-red-500">*</span></label>
-                    <input type="text" name="subject" id="subject" value="{{ old('subject') }}" required
-                        class="block w-full rounded-lg border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-800 dark:text-white">
-                    @error('subject') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
+ <!-- Asunto -->
+                <div>
+                    <label for="subject" class="mb-2 block text-sm font-medium text-stone-700 dark:text-stone-200">Asunto</label>
+                    @php
+                        $defaultSubject = request('producto') ? 'Pedido: ' . request('producto') : '';
+                    @endphp
+                    <input type="text" id="subject" name="subject" value="{{ old('subject', $defaultSubject) }}" maxlength="255" required placeholder="¿En qué podemos ayudarte?" class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none transition focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100">
                 </div>
-
+                
                 <!-- Mensaje -->
-                <div class="sm:col-span-2">
-                    <label for="message" class="mb-1 block text-sm font-medium text-stone-700 dark:text-stone-300">Tu mensaje <span class="text-red-500">*</span></label>
-                    <textarea name="message" id="message" rows="5" required
-                        class="block w-full rounded-lg border-stone-300 bg-white px-4 py-2.5 text-sm text-stone-900 focus:border-amber-500 focus:ring-amber-500 dark:border-stone-600 dark:bg-stone-800 dark:text-white">{{ old('message') }}</textarea>
-                    @error('message') <span class="mt-1 text-xs text-red-600">{{ $message }}</span> @enderror
+                <div>
+                    <label for="message" class="mb-2 block text-sm font-medium text-stone-700 dark:text-stone-200">Mensaje</label>
+                    @php
+                        $defaultMessage = request('producto') ? 'Hola, me gustaría solicitar 1 unidad de ' . request('producto') . '. Para esta tarde.' : '';
+                    @endphp
+                    <textarea id="message" name="message" rows="5" minlength="10" maxlength="5000" required placeholder="Escribe aquí tu mensaje..." class="w-full resize-y rounded-lg border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none transition focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100">{{ old('message', $defaultMessage) }}</textarea>
                 </div>
-            </div>
 
             <div class="mt-8 text-right">
                 <button type="submit"
