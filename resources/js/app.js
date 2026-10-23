@@ -39,6 +39,7 @@ if (themeToggle) {
         }
     });
 }
+
 document.querySelectorAll('[data-carousel-next]').forEach((button) => {
     button.addEventListener('click', () => {
         const categoryId = button.dataset.carouselNext;
