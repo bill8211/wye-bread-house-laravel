@@ -21,7 +21,11 @@
 
 <body class="min-h-screen bg-stone-50 font-sans text-stone-800 antialiased transition-colors dark:bg-stone-950 dark:text-stone-100">
 
+@hasSection('public-header')
+    @yield('public-header')
+@else
     <header class="sticky top-0 z-50 border-b border-stone-200 bg-white/90 backdrop-blur-md dark:border-stone-800 dark:bg-stone-900/90">
+
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
 
             <a href="{{ route('home') }}" class="text-xl font-bold tracking-wide text-amber-800 dark:text-amber-500">
@@ -69,6 +73,7 @@
             </nav>
         </div>
     </header>
+    @endif
 
     <!-- 
       NOTA: Asegúrate de que tus vistas home.blade.php y contact.blade.php 

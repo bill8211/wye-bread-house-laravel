@@ -4,14 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
+
+use App\Http\Controllers\Public\ContactController as PublicContactController;
 use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\ContactController;
 
-use App\Http\Controllers\Frontend\ContactController as PublicContactController;
 
-use App\Http\Controllers\Frontend\HomeController;
+Route::get('/', [\App\Http\Controllers\Public\HomeController::class, 'index'])
+    ->name('home');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')->name('admin.')->group(function () {
 
@@ -44,5 +46,7 @@ Route::middleware(['auth', 'check.status', 'can:access-admin'])->prefix('admin')
     Route::patch('/contacts/{contact}/status', [ContactController::class, 'markAsAttended'])->name('contacts.mark-attended');
 });
 
-Route::get('/contacto', [PublicContactController::class, 'index'])->name('contact.index');
-Route::post('/contacto', [PublicContactController::class, 'store'])->name('contact.store');
+
+Route::post('/contacto', [PublicContactController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
